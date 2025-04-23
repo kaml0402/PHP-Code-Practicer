@@ -6,6 +6,15 @@ ini_set("display_errors", 1);
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LKK3VTPXKX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LKK3VTPXKX');
+</script>
     <meta charset="UTF-8">
     <title>Kamal's PHP Practice</title>
     <link rel="icon" type="image/png" href="favicon.png">
