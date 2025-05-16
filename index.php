@@ -16,7 +16,7 @@ ini_set("display_errors", 1);
   gtag('config', 'G-LKK3VTPXKX');
 </script>
     <meta charset="UTF-8">
-    <title>Kamal's PHP Practice</title>
+    <title>Kamal's PHP Code Practicer</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <style>
         body {
@@ -81,13 +81,35 @@ ini_set("display_errors", 1);
         }
 
         /* Dark Mode */
-        body.dark-mode {
-            background-color: #121212;
-            color: #eee;
-        }
-        body.dark-mode a { color: #66b2ff; }
-        body.dark-mode table, body.dark-mode .panel { background: #1e1e1e; }
-        body.dark-mode pre { background: #2e2e2e; }
+        /* Dark Mode */
+body.dark-mode {
+    background-color: #121212;  /* Dark background for whole page */
+    color: #ddd;                /* Light text color */
+}
+
+body.dark-mode h1 {
+    color: #d0bcff; /* Softer purple */
+    background-color: transparent; /* Remove white bg */
+    text-shadow: none;
+    padding: 10px 0;
+    border-radius: 5px;
+}
+
+body.dark-mode a {
+    color: #80aaff;
+}
+
+body.dark-mode table,
+body.dark-mode .panel {
+    background: #1e1e1e;
+    color: #ccc;
+}
+
+body.dark-mode pre {
+    background: #2e2e2e;
+    color: #eee;
+}
+
 
         /* Toggle Switch */
         .toggle-switch {
@@ -136,15 +158,52 @@ ini_set("display_errors", 1);
             transform: translateX(26px);
         }
 
+        #modeLabel {
+    font-size: 20px;
+    margin-left: 10px;
+    transition: 0.3s;
+}
+
+
         /* Search Bar */
-        #searchInput {
-            padding: 10px;
-            width: 50%;
-            margin: 20px auto;
-            display: block;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+        /* Light Mode - Default */
+#searchInput {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    color: #333;
+    padding: 10px 1rem;
+    border-radius: 12px;
+    font-size: 16px;
+    width: 50%;
+    margin: 20px auto;
+    display: block;
+    transition: 0.3s ease-in-out;
+    box-shadow: none;
+}
+
+#searchInput:focus {
+    outline: none;
+    border-color: #915eff;
+    box-shadow: 0 0 5px #915eff;
+    background-color: #f9f9f9;
+}
+
+/* Dark Mode overrides */
+body.dark-mode #searchInput {
+    background-color: #0f0f0f;
+    border: none;
+    outline: 2px solid #915eff;
+    outline-offset: 3px;
+    color: white;
+    box-shadow: 0 0 10px #915eff, 0 0 20px #ff00cc;
+}
+
+body.dark-mode #searchInput:focus {
+    background-color: #1a1a1a;
+    outline-offset: 5px;
+}
+
+
         #backToTop {
     position: fixed;
     bottom: 30px;
@@ -174,9 +233,10 @@ ini_set("display_errors", 1);
         <input type="checkbox" id="modeToggle">
         <span class="slider"></span>
     </label>
+    <span id="modeLabel">🌞</span> <!-- Default emoji for Light Mode -->
 </div>
 
-<h1>Welcome to Kamal's PHP Practice</h1>
+<h1>Welcome to Kamal's PHP Code Practicer</h1>
 <p>Select a topic to view:</p>
 
 <input type="text" id="searchInput" placeholder="Search by topic...">
@@ -244,24 +304,30 @@ if (isset($_GET['file'])) {
 <?php endif; ?>
 
 <script>
-    // Dark Mode Toggle
-    const toggle = document.getElementById('modeToggle');
-    const body = document.body;
+    // Dark Mode Toggle with Emoji
+const toggle = document.getElementById('modeToggle');
+const body = document.body;
+const modeLabel = document.getElementById('modeLabel'); // Emoji span
 
-    if (localStorage.getItem("theme") === "dark") {
-        toggle.checked = true;
+if (localStorage.getItem("theme") === "dark") {
+    toggle.checked = true;
+    body.classList.add("dark-mode");
+    modeLabel.textContent = "🌙";
+} else {
+    modeLabel.textContent = "🌞";
+}
+
+toggle.addEventListener('change', () => {
+    if (toggle.checked) {
         body.classList.add("dark-mode");
+        localStorage.setItem("theme", "dark");
+        modeLabel.textContent = "🌙";
+    } else {
+        body.classList.remove("dark-mode");
+        localStorage.setItem("theme", "light");
+        modeLabel.textContent = "🌞";
     }
-
-    toggle.addEventListener('change', () => {
-        if (toggle.checked) {
-            body.classList.add("dark-mode");
-            localStorage.setItem("theme", "dark");
-        } else {
-            body.classList.remove("dark-mode");
-            localStorage.setItem("theme", "light");
-        }
-    });
+});
 
     // Search Filter
     const searchInput = document.getElementById("searchInput");
